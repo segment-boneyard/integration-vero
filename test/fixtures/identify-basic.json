@@ -1,0 +1,32 @@
+{
+  "input": {
+    "type": "identify",
+    "userId": "user-id",
+    "traits": {
+      "avatar": "avatar.jpg",
+      "country": "some-country",
+      "name": "John Doe",
+      "gender": "male",
+      "email": "jd@example.com",
+      "phone": "55555",
+      "city": "some-city",
+      "age": "age"
+    }
+  },
+  "output": {
+    "auth_token": "some-auth-token",
+    "id": "user-id",
+    "email": "jd@example.com",
+    "data": {
+      "avatar": "avatar.jpg",
+      "country": "some-country",
+      "name": "John Doe",
+      "gender": "male",
+      "email": "jd@example.com",
+      "phone": "55555",
+      "city": "some-city",
+      "id": "user-id",
+      "age": "age"
+    }
+  }
+}

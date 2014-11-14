@@ -1,0 +1,31 @@
+{
+  "name": "integration-vero",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Vero server-side integration",
+  "author": "Segment <friends@segment.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/segmentio/integration-vero"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {
+    "segmentio-integration": "^2.3.3",
+    "unix-time": "^1.0.1"
+  },
+  "devDependencies": {
+    "istanbul": "0.x",
+    "jscs": "1.x",
+    "merge-util": "^0.1.0",
+    "mocha": "2.x",
+    "ms": "0.x",
+    "segmentio-facade": "^2.0.5",
+    "segmentio-integration-tester": "^1.0.5",
+    "should": "^4.3.0",
+    "uid": "0.0.2",
+    "unix-time": "^1.0.1"
+  }
+}
