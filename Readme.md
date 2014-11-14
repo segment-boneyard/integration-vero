@@ -1,8 +1,8 @@
-[![Build Status](https://circleci.com/gh/segmentio/integration-vero.png)](https://circleci.com/gh/segmentio/integration-vero)
+[![Build Status](https://circleci.com/gh/segmentio/integration-vero/tree/master.png?style=badge)](https://circleci.com/gh/segmentio/integration-vero/tree/master)
 
-# Vero server-side integration.
+# integration-vero
 
-Write me...
+Vero server-side integration for Segment.
 
 
 ## License
