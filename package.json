@@ -1,6 +1,6 @@
 {
   "name": "integration-vero",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Vero server-side integration",
   "author": "Segment <friends@segment.com>",
