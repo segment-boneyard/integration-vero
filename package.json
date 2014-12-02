@@ -13,7 +13,7 @@
     "test": "make test"
   },
   "dependencies": {
-    "segmentio-integration": "^2.3.4",
+    "segmentio-integration": "3.x",
     "unix-time": "^1.0.1"
   },
   "devDependencies": {
