@@ -1,3 +1,4 @@
+'use strict';
 
 var Test = require('segmentio-integration-tester');
 var helpers = require('./helpers');
@@ -8,13 +9,13 @@ var assert = require('assert');
 var time = require('unix-time');
 var Vero = require('..');
 
-describe('Vero', function () {
+describe('Vero', function(){
   var settings;
   var vero;
   var test;
 
   beforeEach(function(){
-    settings = { authToken: 'ZmEzYjZkNWZkOWY0ZDYxZmQyYTg2OGNkNzQ1ZmY2YzIyNjEwZTI4OTplNGVhZTAzZjY4NWIyNjIwNjA4ZDRkZjA3NjFkNmEyZTBmNmQzZjc3' };
+    settings = { authToken: 'OTk1MDRmZWExN2Q5YjcwODA1ZTQ3MGE2NzJhZjFjNWI2MDhlYjg4ZjozODUzNzJlMjMwOWQ2NTg0NTQyNDUwMmM0NzQwN2ZlNDJiM2ZmOWQz' };
     vero = new Vero(settings);
     test = Test(vero, __dirname);
   });
@@ -62,6 +63,18 @@ describe('Vero', function () {
       it('should map basic track', function(){
         test.set({ authToken: 'some-auth-token' });
         test.maps('track-basic');
+      });
+    });
+
+    describe('group', function(){
+      it('should map basic group', function(){
+        test.set({ authToken: settings.authToken });
+        test.maps('group-basic');
+      });
+
+      it('should not map `email` to a group trait', function(){
+        test.set({ authToken: settings.authToken });
+        test.maps('group-no-userid');
       });
     });
   });
@@ -115,6 +128,33 @@ describe('Vero', function () {
         .set({ authToken: 'x' })
         .identify({ userId: 'user-id' })
         .error('cannot POST /api/v2/users/track (401)', done);
+    });
+  });
+
+  describe('.group()', function(){
+    it('should get a good response from the API', function(done){
+      var group = test.fixture('group-basic');
+      test
+        .set(settings)
+        .group(group.input)
+        .sends(group.output)
+        .expects(200, done);
+    });
+
+    it('successfully send when only an email (no userId) is provided', function(done){
+      var group = test.fixture('group-no-userid');
+      test
+        .set(settings)
+        .group(group.input)
+        .sends(group.output)
+        .expects(200, done);
+    });
+
+    it('should error on invalid request', function(done){
+      test
+        .set({ authToken: 'x' })
+        .group({ userId: 'user-id' })
+        .error('cannot PUT /api/v2/users/edit (401)', done);
     });
   });
 
