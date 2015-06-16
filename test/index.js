@@ -94,7 +94,8 @@ describe('Vero', function(){
             email: track.email()
           },
           extras: {
-            created_at: time(track.timestamp())
+            created_at: time(track.timestamp()),
+            source: 'segment'
           }
         })
         .expects(200, done);

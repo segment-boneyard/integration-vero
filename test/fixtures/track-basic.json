@@ -19,7 +19,8 @@
     "auth_token": "some-auth-token",
     "event_name": "my-event",
     "extras": {
-      "created_at": 1388534400
+      "created_at": 1388534400,
+      "source": "segment"
     },
     "identity": {
       "id": "user-id",
