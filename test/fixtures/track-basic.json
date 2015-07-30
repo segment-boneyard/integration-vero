@@ -23,8 +23,7 @@
       "source": "segment"
     },
     "identity": {
-      "id": "user-id",
-      "email": "jd@example.com"
+      "id": "user-id"
     },
     "data": {
       "avatar": "avatar.jpg",
