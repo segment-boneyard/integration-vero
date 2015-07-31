@@ -1,4 +1,10 @@
 
+1.1.1 / 2015-07-31
+==================
+
+  * remove email from track calls
+  * Set source to 'segment' when tracking events
+
 1.1.0 / 2014-12-16
 ==================
 
