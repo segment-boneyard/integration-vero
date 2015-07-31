@@ -90,8 +90,7 @@ describe('Vero', function(){
           event_name: track.event(),
           data: track.properties(),
           identity: {
-            id: track.userId(),
-            email: track.email()
+            id: track.userId()
           },
           extras: {
             created_at: time(track.timestamp()),
