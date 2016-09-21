@@ -104,7 +104,7 @@ describe('Vero', function(){
       test
         .set({ authToken: 'x' })
         .track({ event: 'event' })
-        .error('cannot POST /api/v2/events/track (400)', done);
+        .error('Bad Request', done);
     });
   });
 
@@ -127,7 +127,7 @@ describe('Vero', function(){
       test
         .set({ authToken: 'x' })
         .identify({ userId: 'user-id' })
-        .error('cannot POST /api/v2/users/track (401)', done);
+        .error('Unauthorized', done);
     });
   });
 
@@ -154,7 +154,7 @@ describe('Vero', function(){
       test
         .set({ authToken: 'x' })
         .group({ userId: 'user-id' })
-        .error('cannot PUT /api/v2/users/edit (401)', done);
+        .error('Unauthorized', done);
     });
   });
 
@@ -176,7 +176,7 @@ describe('Vero', function(){
       test
         .set({ authToken: 'x' })
         .alias({ userId: 'user-id' })
-        .error('cannot PUT /api/v2/users/reidentify (400)', done);
+        .error('Bad Request', done);
     });
   });
 });
