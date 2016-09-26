@@ -1,4 +1,11 @@
 
+2.1.0 / 2016-09-26
+==================
+
+  * Update for parity with analytics.js integration
+  * Merge pull request #11 from segment-integrations/circleci_touchup
+  * run deploy build when tags are pushed
+
 2.0.0 / 2016-09-22
 ==================
 

@@ -1,12 +1,8 @@
 'use strict';
 
 var Test = require('segmentio-integration-tester');
-var helpers = require('./helpers');
 var mapper = require('../lib/mapper');
-var time = require('unix-time');
-var should = require('should');
 var assert = require('assert');
-var time = require('unix-time');
 var Vero = require('..');
 
 describe('Vero', function(){
@@ -54,49 +50,39 @@ describe('Vero', function(){
   describe('mapper', function(){
     describe('identify', function(){
       it('should map basic identify', function(){
-        test.set({ authToken: 'some-auth-token' });
-        test.maps('identify-basic');
+        test.maps('identify-basic', {}, { ignored: [ 'auth_token' ] });
       });
     });
 
     describe('track', function(){
-      it('should map basic track', function(){
-        test.set({ authToken: 'some-auth-token' });
-        test.maps('track-basic');
-      });
+     it('should map basic track', function(){
+       test.maps('track-basic', {}, { ignored: [ 'auth_token' ] });
+     });
+
+    it('should map unsubscribe track', function(){
+      test.maps('track-unsubscribe', {}, { ignored: [ 'auth_token' ] });
     });
+   });
 
     describe('group', function(){
       it('should map basic group', function(){
-        test.set({ authToken: settings.authToken });
-        test.maps('group-basic');
+        test.maps('group-basic', {}, { ignored: [ 'auth_token' ] });
       });
 
       it('should not map `email` to a group trait', function(){
         test.set({ authToken: settings.authToken });
-        test.maps('group-no-userid');
+        test.maps('group-no-userid', {}, { ignored: [ 'auth_token' ] });
       });
     });
   });
 
   describe('.track()', function(){
     it('should get a good response from the API', function(done){
-      var track = helpers.track();
+      var track = test.fixture('track-basic');
       test
         .set(settings)
-        .track(track)
-        .sends({
-          auth_token: settings.authToken,
-          event_name: track.event(),
-          data: track.properties(),
-          identity: {
-            id: track.userId()
-          },
-          extras: {
-            created_at: time(track.timestamp()),
-            source: 'segment'
-          }
-        })
+        .track(track.input)
+        .sendsAlmost(track.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -106,20 +92,34 @@ describe('Vero', function(){
         .track({ event: 'event' })
         .error('Bad Request', done);
     });
+
+    it('should unsubscribe when the event name contains "unsubscribe"', function(done){
+      var track = test.fixture('track-unsubscribe');
+      test
+        .set(settings)
+        .track(track.input)
+        .sendsAlmost(track.output, { ignored: [ 'auth_token' ] })
+        .pathname('/api/v2/users/unsubscribe')
+        .expects(200, done);
+    });
   });
 
   describe('.identify()', function(){
     it('should get a good response from the API', function(done){
-      var identify = helpers.identify();
+      var identify = test.fixture('identify-basic');
       test
         .set(settings)
-        .identify(identify)
-        .sends({
-          id: identify.userId(),
-          auth_token: settings.authToken,
-          email: identify.email(),
-          data: identify.traits()
-        })
+        .identify(identify.input)
+        .sendsAlmost(identify.output, { ignored: [ 'auth_token' ] })
+        .expects(200, done);
+    });
+
+    it('should send userAgent when present', function(done){
+      var identify = test.fixture('identify-ua');
+      test
+        .set(settings)
+        .identify(identify.input)
+        .sendsAlmost(identify.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -137,7 +137,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .group(group.input)
-        .sends(group.output)
+        .sendsAlmost(group.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -146,7 +146,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .group(group.input)
-        .sends(group.output)
+        .sendsAlmost(group.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -160,15 +160,11 @@ describe('Vero', function(){
 
   describe('.alias()', function(){
     it('should alias correctly', function(done){
-      var alias = helpers.alias();
+      var alias = test.fixture('alias-basic');
       test
         .set(settings)
-        .track(alias)
-        .sends({
-          auth_token: settings.authToken,
-          id: alias.from(),
-          new_id: alias.to()
-        })
+        .alias(alias.input)
+        .sendsAlmost(alias.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -177,6 +173,17 @@ describe('Vero', function(){
         .set({ authToken: 'x' })
         .alias({ userId: 'user-id' })
         .error('Bad Request', done);
+    });
+  });
+
+  describe('.page()', function(){
+    it('should track page as a viewed_page event', function(done) {
+      var page = test.fixture('page-basic');
+      test
+        .set(settings)
+        .page(page.input)
+        .sendsAlmost(page.output, { ignored: [ 'auth_token' ] })
+        .expects(200, done);
     });
   });
 });

@@ -1,0 +1,23 @@
+{
+  "input": {
+    "type": "page",
+    "userId": "user-id",
+    "timestamp": "2014",
+    "properties": {
+      "url": "http://my-favorite-site.com"
+    }
+  },
+  "output": {
+    "event_name": "viewed_page",
+    "extras": {
+      "created_at": 1388534400,
+      "source": "segment"
+    },
+    "identity": {
+      "id": "user-id"
+    },
+    "data": {
+      "url": "http://my-favorite-site.com"
+    }
+  }
+}

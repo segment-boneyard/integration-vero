@@ -3,7 +3,7 @@
     "type": "track",
     "userId": "user-id",
     "timestamp": "2014",
-    "event": "my-event",
+    "event": "unsubscribe",
     "properties": {
       "avatar": "avatar.jpg",
       "country": "some-country",
@@ -16,23 +16,10 @@
     }
   },
   "output": {
-    "event_name": "my-event",
     "extras": {
       "created_at": 1388534400,
       "source": "segment"
     },
-    "identity": {
-      "id": "user-id"
-    },
-    "data": {
-      "avatar": "avatar.jpg",
-      "country": "some-country",
-      "name": "John Doe",
-      "gender": "male",
-      "email": "jd@example.com",
-      "phone": "55555",
-      "city": "some-city",
-      "age": "age"
-    }
+    "id": "user-id"
   }
 }
