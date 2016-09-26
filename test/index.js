@@ -50,32 +50,28 @@ describe('Vero', function(){
   describe('mapper', function(){
     describe('identify', function(){
       it('should map basic identify', function(){
-        test.set({ authToken: settings.authToken });
-        test.maps('identify-basic');
+        test.maps('identify-basic', {}, { ignored: [ 'auth_token' ] });
       });
     });
 
     describe('track', function(){
      it('should map basic track', function(){
-       test.set({ authToken: settings.authToken });
-       test.maps('track-basic');
+       test.maps('track-basic', {}, { ignored: [ 'auth_token' ] });
      });
 
     it('should map unsubscribe track', function(){
-      test.set({ authToken: settings.authToken });
-      test.maps('track-unsubscribe');
+      test.maps('track-unsubscribe', {}, { ignored: [ 'auth_token' ] });
     });
    });
 
     describe('group', function(){
       it('should map basic group', function(){
-        test.set({ authToken: settings.authToken });
-        test.maps('group-basic');
+        test.maps('group-basic', {}, { ignored: [ 'auth_token' ] });
       });
 
       it('should not map `email` to a group trait', function(){
         test.set({ authToken: settings.authToken });
-        test.maps('group-no-userid');
+        test.maps('group-no-userid', {}, { ignored: [ 'auth_token' ] });
       });
     });
   });
@@ -86,7 +82,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .track(track.input)
-        .sends(track.output)
+        .sendsAlmost(track.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -102,7 +98,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .track(track.input)
-        .sends(track.output)
+        .sendsAlmost(track.output, { ignored: [ 'auth_token' ] })
         .pathname('/api/v2/users/unsubscribe')
         .expects(200, done);
     });
@@ -114,7 +110,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .identify(identify.input)
-        .sends(identify.output)
+        .sendsAlmost(identify.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -123,7 +119,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .identify(identify.input)
-        .sends(identify.output)
+        .sendsAlmost(identify.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -141,7 +137,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .group(group.input)
-        .sends(group.output)
+        .sendsAlmost(group.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -150,7 +146,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .group(group.input)
-        .sends(group.output)
+        .sendsAlmost(group.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -168,7 +164,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .alias(alias.input)
-        .sends(alias.output)
+        .sendsAlmost(alias.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
 
@@ -186,7 +182,7 @@ describe('Vero', function(){
       test
         .set(settings)
         .page(page.input)
-        .sends(page.output)
+        .sendsAlmost(page.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
   });
