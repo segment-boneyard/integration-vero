@@ -1,8 +1,10 @@
 {
   "input": {
-    "type": "identify",
+    "type": "track",
     "userId": "user-id",
-    "traits": {
+    "timestamp": "2014",
+    "event": "unsubscribe",
+    "properties": {
       "avatar": "avatar.jpg",
       "country": "some-country",
       "name": "John Doe",
@@ -15,18 +17,10 @@
   },
   "output": {
     "auth_token": "OTk1MDRmZWExN2Q5YjcwODA1ZTQ3MGE2NzJhZjFjNWI2MDhlYjg4ZjozODUzNzJlMjMwOWQ2NTg0NTQyNDUwMmM0NzQwN2ZlNDJiM2ZmOWQz",
-    "id": "user-id",
-    "email": "jd@example.com",
-    "data": {
-      "avatar": "avatar.jpg",
-      "country": "some-country",
-      "name": "John Doe",
-      "gender": "male",
-      "email": "jd@example.com",
-      "phone": "55555",
-      "city": "some-city",
-      "id": "user-id",
-      "age": "age"
-    }
+    "extras": {
+      "created_at": 1388534400,
+      "source": "segment"
+    },
+    "id": "user-id"
   }
 }

@@ -16,7 +16,7 @@
     }
   },
   "output": {
-    "auth_token": "some-auth-token",
+    "auth_token": "OTk1MDRmZWExN2Q5YjcwODA1ZTQ3MGE2NzJhZjFjNWI2MDhlYjg4ZjozODUzNzJlMjMwOWQ2NTg0NTQyNDUwMmM0NzQwN2ZlNDJiM2ZmOWQz",
     "event_name": "my-event",
     "extras": {
       "created_at": 1388534400,

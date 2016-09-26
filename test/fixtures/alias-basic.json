@@ -1,0 +1,13 @@
+{
+  "input": {
+    "type": "alias",
+    "previousId": "user-id",
+    "userId": "new-user-id",
+    "timestamp": "2014"
+  },
+  "output": {
+    "auth_token": "OTk1MDRmZWExN2Q5YjcwODA1ZTQ3MGE2NzJhZjFjNWI2MDhlYjg4ZjozODUzNzJlMjMwOWQ2NTg0NTQyNDUwMmM0NzQwN2ZlNDJiM2ZmOWQz",
+    "id": "user-id",
+    "new_id": "new-user-id"
+  }
+}
