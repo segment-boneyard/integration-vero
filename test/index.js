@@ -55,13 +55,13 @@ describe('Vero', function(){
     });
 
     describe('track', function(){
-     it('should map basic track', function(){
+      it('should map basic track', function(){
        test.maps('track-basic', {}, { ignored: [ 'auth_token' ] });
-     });
+      });
 
-    it('should map unsubscribe track', function(){
-      test.maps('track-unsubscribe', {}, { ignored: [ 'auth_token' ] });
-    });
+      it('should map unsubscribe track', function(){
+        test.maps('track-unsubscribe', {}, { ignored: [ 'auth_token' ] });
+      });
    });
 
     describe('group', function(){
@@ -100,6 +100,15 @@ describe('Vero', function(){
         .track(track.input)
         .sendsAlmost(track.output, { ignored: [ 'auth_token' ] })
         .pathname('/api/v2/users/unsubscribe')
+        .expects(200, done);
+    });
+
+    it('should map track with email set explicitly', function(done){
+      var track = test.fixture('track-with-email');
+      test
+        .set(settings)
+        .track(track.input)
+        .sendsAlmost(track.output, { ignored: [ 'auth_token' ] })
         .expects(200, done);
     });
   });
