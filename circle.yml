@@ -17,6 +17,6 @@ deployment:
    commands:
     - curl -sLu "$HTTP_AUTH:" $BUILD | bash
   push_versioned:
-   branch: 2016-09-22 
+   branch: "2016-09-22"
    commands:
     - curl -sLu "$HTTP_AUTH:" $BUILD | bash
