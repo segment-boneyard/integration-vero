@@ -1,9 +1,4 @@
 
-2.0.1 / 2016-11-04
-==================
-
-  * Send customer email explitcitly with track calls 
-
 2.0.0 / 2016-09-22
 ==================
 

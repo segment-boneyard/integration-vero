@@ -90,8 +90,7 @@ describe('Vero', function(){
           event_name: track.event(),
           data: track.properties(),
           identity: {
-            id: track.userId(),
-            email: track.email()
+            id: track.userId()
           },
           extras: {
             created_at: time(track.timestamp()),
@@ -106,15 +105,6 @@ describe('Vero', function(){
         .set({ authToken: 'x' })
         .track({ event: 'event' })
         .error('Bad Request', done);
-    });
-
-    it('should map track with email set explicitly', function(done){
-      var track = test.fixture('track-with-email');
-      test
-        .set(settings)
-        .track(track.input)
-        .sendsAlmost(track.output, { ignored: [ 'auth_token' ] })
-        .expects(200, done);
     });
   });
 
