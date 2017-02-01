@@ -1,6 +1,6 @@
 {
   "name": "integration-vero",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "integration-version": "2016-09-26",
   "private": true,
   "description": "Vero server-side integration",
