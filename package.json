@@ -2,7 +2,6 @@
   "name": "@segment/integration-vero",
   "version": "2.2.1",
   "integration-version": "2016-09-26",
-  
   "description": "Vero server-side integration",
   "author": "Segment <friends@segment.com>",
   "repository": {
