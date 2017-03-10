@@ -1,3 +1,7 @@
+2.3.1 / 2017-03-10
+==================
+
+  * Bump version to test deployment
 
 2.2.0 / 2017-01-31
 ==================
@@ -9,7 +13,7 @@ segmentio-integration version, upgrade integration-worker version, etc.)
 2.1.1 / 2016-11-03
 ==================
 
-  * Send customer email explicitly with track calls 
+  * Send customer email explicitly with track calls
 
 2.1.0 / 2016-09-26
 ==================
