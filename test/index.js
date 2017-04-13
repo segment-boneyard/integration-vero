@@ -198,15 +198,60 @@ describe('Vero', function(){
   });
 
   describe.only('addOrRemoveTags()', function(){
-    it('should successfully send tags', function(done){
+    it('should add tags', function(done){
       var identify = test.fixture('identify-basic');
       identify.input.integrations = {
-        Vero: { tags: {action: 'add', tags: ['yolo']}}
+        Vero: { tags: { action: 'add', tags: ['yolo'] } }
       };
       test
         .set(settings)
         .identify(identify.input)
         .expects(200, done)
     })
+
+    it('should remove tags', function(done){
+      var track = test.fixture('track-basic');
+      track.input.integrations = {
+        Vero: { tags: { action: 'remove', tags: ['yolo'] } }
+      };
+      test
+        .set(settings)
+        .identify(track.input)
+        .expects(200, done)
+    })
+
+    it('should error if tags object is not an object', function(done){
+      var track = test.fixture('track-basic');
+      track.input.integrations = {
+        Vero: { tags: true }
+      };
+      test
+        .set(settings)
+        .identify(track.input)
+        .error(done)
+    })
+
+    it('should error if tags.action is not add or remove', function(done){
+      var track = test.fixture('track-basic');
+      track.input.integrations = {
+        Vero: { tags: { action: 'somthing_dumb', tags: ['yolo'] } }
+      };
+      test
+        .set(settings)
+        .identify(track.input)
+        .error(done)
+    })
+
+    it('should error if tags.tags is not array', function(done){
+      var track = test.fixture('track-basic');
+      track.input.integrations = {
+        Vero: { tags: { action: 'somthing_dumb', tags: {} } }
+      };
+      test
+        .set(settings)
+        .identify(track.input)
+        .error(done)
+    })
   })
 });
+
