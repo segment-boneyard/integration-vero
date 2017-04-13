@@ -13,6 +13,7 @@ describe('Vero', function(){
   beforeEach(function(){
     settings = { authToken: 'OTk1MDRmZWExN2Q5YjcwODA1ZTQ3MGE2NzJhZjFjNWI2MDhlYjg4ZjozODUzNzJlMjMwOWQ2NTg0NTQyNDUwMmM0NzQwN2ZlNDJiM2ZmOWQz' };
     vero = new Vero(settings);
+    vero.mapper = mapper;
     test = Test(vero, __dirname);
   });
 
@@ -195,4 +196,17 @@ describe('Vero', function(){
         .expects(200, done);
     });
   });
+
+  describe.only('addOrRemoveTags()', function(){
+    it('should successfully send tags', function(done){
+      var identify = test.fixture('identify-basic');
+      identify.input.integrations = {
+        Vero: { tags: {action: 'add', tags: ['yolo']}}
+      };
+      test
+        .set(settings)
+        .identify(identify.input)
+        .expects(200, done)
+    })
+  })
 });
