@@ -251,6 +251,29 @@ describe('Vero', function() {
         .identify(track.input)
         .error(done);
     });
+
+    it('should allow the caller to specify a user id', function(done) {
+      var track = test.fixture('track-basic');
+      var id = 'billbrasky';
+      var action = 'remove';
+      var tags = ['yolo'];
+      track.input.integrations = {
+        Vero: { tags: { id: id, action: action, tags: tags } }
+      };
+
+      var expectedPayload = {
+        auth_token: settings.authToken,
+        id: id,
+        remove: tags
+      };
+
+      test
+        .set(settings)
+        .track(track.input)
+        .request(1)
+        .sends(expectedPayload)
+        .expects(200, done);
+    });
   });
 });
 
