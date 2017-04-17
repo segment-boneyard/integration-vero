@@ -200,7 +200,7 @@ describe('Vero', function() {
     it('should add tags', function(done) {
       var identify = test.fixture('identify-basic');
       identify.input.integrations = {
-        Vero: { tags: { action: 'add', tags: ['yolo'] } }
+        Vero: { tags: { action: 'add', values: ['yolo'] } }
       };
       test
         .set(settings)
@@ -211,7 +211,7 @@ describe('Vero', function() {
     it('should remove tags', function(done) {
       var track = test.fixture('track-basic');
       track.input.integrations = {
-        Vero: { tags: { action: 'remove', tags: ['yolo'] } }
+        Vero: { tags: { action: 'remove', values: ['yolo'] } }
       };
       test
         .set(settings)
@@ -233,7 +233,7 @@ describe('Vero', function() {
     it('should error if tags.action is not add or remove', function(done) {
       var track = test.fixture('track-basic');
       track.input.integrations = {
-        Vero: { tags: { action: 'somthing_dumb', tags: ['yolo'] } }
+        Vero: { tags: { action: 'somthing_dumb', values: ['yolo'] } }
       };
       test
         .set(settings)
@@ -244,7 +244,7 @@ describe('Vero', function() {
     it('should error if tags.tags is not array', function(done) {
       var track = test.fixture('track-basic');
       track.input.integrations = {
-        Vero: { tags: { action: 'somthing_dumb', tags: {} } }
+        Vero: { tags: { action: 'somthing_dumb', values: {} } }
       };
       test
         .set(settings)
@@ -256,15 +256,15 @@ describe('Vero', function() {
       var track = test.fixture('track-basic');
       var id = 'billbrasky';
       var action = 'remove';
-      var tags = ['yolo'];
+      var values = ['yolo'];
       track.input.integrations = {
-        Vero: { tags: { id: id, action: action, tags: tags } }
+        Vero: { tags: { id: id, action: action, values: values } }
       };
 
       var expectedPayload = {
         auth_token: settings.authToken,
         id: id,
-        remove: tags
+        remove: values
       };
 
       test
