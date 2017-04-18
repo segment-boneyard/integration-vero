@@ -252,6 +252,18 @@ describe('Vero', function() {
         .error(done);
     });
 
+    it('should return an error if the initial event fails', function(done) {
+      var identify = test.fixture('identify-basic');
+      identify.input.integrations = {
+        Vero: { tags: { action: 'add', values: ['yolo'] } }
+      };
+
+      test
+        .set({ authToken: 'x' })
+        .identify({ userId: 'user-id' })
+        .error('Unauthorized', done);
+    });
+
     it('should allow the caller to specify a user id', function(done) {
       var track = test.fixture('track-basic');
       var id = 'billbrasky';
