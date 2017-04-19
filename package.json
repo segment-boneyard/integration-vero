@@ -1,6 +1,6 @@
 {
   "name": "@segment/integration-vero",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "description": "Vero server-side integration",
   "author": "Segment <friends@segment.com>",
   "repository": {
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "clone": "^0.1.19",
+    "is": "^3.2.1",
     "obj-case": "^0.1.1",
     "reject": "0.0.1",
     "segmentio-integration": "^5.1.0",

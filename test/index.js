@@ -2,21 +2,21 @@
 
 var Test = require('segmentio-integration-tester');
 var mapper = require('../lib/mapper');
-var assert = require('assert');
 var Vero = require('..');
 
-describe('Vero', function(){
+describe('Vero', function() {
   var settings;
   var vero;
   var test;
 
-  beforeEach(function(){
+  beforeEach(function() {
     settings = { authToken: 'OTk1MDRmZWExN2Q5YjcwODA1ZTQ3MGE2NzJhZjFjNWI2MDhlYjg4ZjozODUzNzJlMjMwOWQ2NTg0NTQyNDUwMmM0NzQwN2ZlNDJiM2ZmOWQz' };
     vero = new Vero(settings);
+    vero.mapper = mapper;
     test = Test(vero, __dirname);
   });
 
-  it('should have the correct settings', function(){
+  it('should have the correct settings', function() {
     test
       .endpoint('https://api.getvero.com/api/v2')
       .channels(['server', 'mobile'])
@@ -25,59 +25,59 @@ describe('Vero', function(){
       .retries(2);
   });
 
-  describe('.validate()', function(){
+  describe('.validate()', function() {
     var msg;
 
-    beforeEach(function(){
+    beforeEach(function() {
       msg = { userId: 'user-id' };
     });
 
-    it('should be invalid if .authToken is missing', function(){
+    it('should be invalid if .authToken is missing', function() {
       delete settings.authToken;
       test.invalid(msg, settings);
     });
 
-    it('should be invalid if .userId is missing', function(){
+    it('should be invalid if .userId is missing', function() {
       delete msg.userId;
       test.invalid(msg, settings);
     });
 
-    it('should be valid if settings are complete', function(){
+    it('should be valid if settings are complete', function() {
       test.valid(msg, settings);
     });
   });
 
-  describe('mapper', function(){
-    describe('identify', function(){
-      it('should map basic identify', function(){
+  describe('mapper', function() {
+    describe('identify', function() {
+      it('should map basic identify', function() {
         test.maps('identify-basic', {}, { ignored: [ 'auth_token' ] });
       });
     });
 
-    describe('track', function(){
-      it('should map basic track', function(){
-       test.maps('track-basic', {}, { ignored: [ 'auth_token' ] });
+    describe('track', function() {
+      it('should map basic track', function() {
+        test.maps('track-basic', {}, { ignored: [ 'auth_token' ] });
       });
 
-      it('should map unsubscribe track', function(){
+      it('should map unsubscribe track', function() {
         test.maps('track-unsubscribe', {}, { ignored: [ 'auth_token' ] });
       });
-   });
+    });
 
-    describe('group', function(){
-      it('should map basic group', function(){
+    describe('group', function() {
+      it('should map basic group', function() {
         test.maps('group-basic', {}, { ignored: [ 'auth_token' ] });
       });
 
-      it('should not map `email` to a group trait', function(){
+      it('should not map `email` to a group trait', function() {
         test.set({ authToken: settings.authToken });
         test.maps('group-no-userid', {}, { ignored: [ 'auth_token' ] });
       });
     });
   });
 
-  describe('.track()', function(){
-    it('should get a good response from the API', function(done){
+  describe('.track()', function() {
+    it('should get a good response from the API', function(done) {
       var track = test.fixture('track-basic');
       test
         .set(settings)
@@ -86,14 +86,14 @@ describe('Vero', function(){
         .expects(200, done);
     });
 
-    it('should error on invalid request', function(done){
+    it('should error on invalid request', function(done) {
       test
         .set({ authToken: 'x' })
         .track({ event: 'event' })
         .error('Bad Request', done);
     });
 
-    it('should unsubscribe when the event name contains "unsubscribe"', function(done){
+    it('should unsubscribe when the event name contains "unsubscribe"', function(done) {
       var track = test.fixture('track-unsubscribe');
       test
         .set(settings)
@@ -103,7 +103,7 @@ describe('Vero', function(){
         .expects(200, done);
     });
 
-    it('should map track with email set explicitly', function(done){
+    it('should map track with email set explicitly', function(done) {
       var track = test.fixture('track-with-email');
       test
         .set(settings)
@@ -113,8 +113,8 @@ describe('Vero', function(){
     });
   });
 
-  describe('.identify()', function(){
-    it('should get a good response from the API', function(done){
+  describe('.identify()', function() {
+    it('should get a good response from the API', function(done) {
       var identify = test.fixture('identify-basic');
       test
         .set(settings)
@@ -123,7 +123,7 @@ describe('Vero', function(){
         .expects(200, done);
     });
 
-    it('should send userAgent when present', function(done){
+    it('should send userAgent when present', function(done) {
       var identify = test.fixture('identify-ua');
       test
         .set(settings)
@@ -132,7 +132,7 @@ describe('Vero', function(){
         .expects(200, done);
     });
 
-    it('should error on invalid request', function(done){
+    it('should error on invalid request', function(done) {
       test
         .set({ authToken: 'x' })
         .identify({ userId: 'user-id' })
@@ -140,8 +140,8 @@ describe('Vero', function(){
     });
   });
 
-  describe('.group()', function(){
-    it('should get a good response from the API', function(done){
+  describe('.group()', function() {
+    it('should get a good response from the API', function(done) {
       var group = test.fixture('group-basic');
       test
         .set(settings)
@@ -150,7 +150,7 @@ describe('Vero', function(){
         .expects(200, done);
     });
 
-    it('successfully send when only an email (no userId) is provided', function(done){
+    it('successfully send when only an email (no userId) is provided', function(done) {
       var group = test.fixture('group-no-userid');
       test
         .set(settings)
@@ -159,7 +159,7 @@ describe('Vero', function(){
         .expects(200, done);
     });
 
-    it('should error on invalid request', function(done){
+    it('should error on invalid request', function(done) {
       test
         .set({ authToken: 'x' })
         .group({ userId: 'user-id' })
@@ -167,8 +167,8 @@ describe('Vero', function(){
     });
   });
 
-  describe('.alias()', function(){
-    it('should alias correctly', function(done){
+  describe('.alias()', function() {
+    it('should alias correctly', function(done) {
       var alias = test.fixture('alias-basic');
       test
         .set(settings)
@@ -177,7 +177,7 @@ describe('Vero', function(){
         .expects(200, done);
     });
 
-    it('should error on invalid request', function(done){
+    it('should error on invalid request', function(done) {
       test
         .set({ authToken: 'x' })
         .alias({ userId: 'user-id' })
@@ -185,7 +185,7 @@ describe('Vero', function(){
     });
   });
 
-  describe('.page()', function(){
+  describe('.page()', function() {
     it('should track page as a viewed_page event', function(done) {
       var page = test.fixture('page-basic');
       test
@@ -195,4 +195,97 @@ describe('Vero', function(){
         .expects(200, done);
     });
   });
+
+  describe('addOrRemoveTags()', function() {
+    it('should add tags', function(done) {
+      var identify = test.fixture('identify-basic');
+      identify.input.integrations = {
+        Vero: { tags: { action: 'add', values: ['yolo'] } }
+      };
+      test
+        .set(settings)
+        .identify(identify.input)
+        .expects(200, done);
+    });
+
+    it('should remove tags', function(done) {
+      var track = test.fixture('track-basic');
+      track.input.integrations = {
+        Vero: { tags: { action: 'remove', values: ['yolo'] } }
+      };
+      test
+        .set(settings)
+        .identify(track.input)
+        .expects(200, done);
+    });
+
+    it('should error if tags object is not an object', function(done) {
+      var track = test.fixture('track-basic');
+      track.input.integrations = {
+        Vero: { tags: true }
+      };
+      test
+        .set(settings)
+        .identify(track.input)
+        .error(done);
+    });
+
+    it('should error if tags.action is not add or remove', function(done) {
+      var track = test.fixture('track-basic');
+      track.input.integrations = {
+        Vero: { tags: { action: 'somthing_dumb', values: ['yolo'] } }
+      };
+      test
+        .set(settings)
+        .identify(track.input)
+        .error(done);
+    });
+
+    it('should error if tags.tags is not array', function(done) {
+      var track = test.fixture('track-basic');
+      track.input.integrations = {
+        Vero: { tags: { action: 'somthing_dumb', values: {} } }
+      };
+      test
+        .set(settings)
+        .identify(track.input)
+        .error(done);
+    });
+
+    it('should return an error if the initial event fails', function(done) {
+      var identify = test.fixture('identify-basic');
+      identify.input.integrations = {
+        Vero: { tags: { action: 'add', values: ['yolo'] } }
+      };
+
+      test
+        .set({ authToken: 'x' })
+        .identify({ userId: 'user-id' })
+        .error('Unauthorized', done);
+    });
+
+    it('should allow the caller to specify a user id', function(done) {
+      var track = test.fixture('track-basic');
+      var id = 'billbrasky';
+      var action = 'remove';
+      var values = ['yolo'];
+      track.input.integrations = {
+        Vero: { tags: { id: id, action: action, values: values } }
+      };
+
+      var expectedPayload = {
+        auth_token: settings.authToken,
+        id: id,
+        remove: values
+      };
+
+      test
+        .set(settings)
+        .track(track.input)
+        .request(1)
+        .sends(expectedPayload)
+        .expects(200, done);
+    });
+  });
 });
+
