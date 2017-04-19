@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "clone": "^0.1.19",
+    "is": "^3.2.1",
     "obj-case": "^0.1.1",
     "reject": "0.0.1",
     "segmentio-integration": "^5.1.0",
